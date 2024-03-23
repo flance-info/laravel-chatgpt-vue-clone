@@ -6,6 +6,7 @@ use App\Http\Requests\StoreChatRequest;
 use App\Models\Chat;
 use Illuminate\Support\Facades\Auth;
 use OpenAI\Laravel\Facades\OpenAI;
+use Illuminate\Support\Facades\Log;
 
 class ChatGptStoreController extends Controller
 {
@@ -20,6 +21,9 @@ class ChatGptStoreController extends Controller
             $messages = $chat->context;
         }
         $messages[] = ['role' => 'user', 'content' => $request->input('promt')];
+
+    // Log the user's message
+    Log::info('User message', ['message' => $messages ]);
         $response = OpenAI::chat()->create([
             'model' => 'gpt-3.5-turbo',
             'messages' => $messages
