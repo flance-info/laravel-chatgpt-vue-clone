@@ -5,9 +5,7 @@ import PrimaryButton from '@/Components/PrimaryButton.vue';
 import { Head, Link, useForm } from '@inertiajs/vue3';
 
 const props = defineProps({
-    status: {
-        type: String,
-    },
+    status: String,
 });
 
 const form = useForm({});
