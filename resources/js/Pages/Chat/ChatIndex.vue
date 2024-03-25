@@ -1,5 +1,5 @@
 <script setup>
-import { ref, onMounted, computed } from "vue";
+import { ref, onMounted, computed, onBeforeUnmount } from "vue";
 import { Head } from "@inertiajs/vue3";
 import ChatLayout from "@/Layouts/ChatLayout.vue";
 import { useForm, Link } from "@inertiajs/vue3";
@@ -39,7 +39,17 @@ const clear = () => {
     scrollToBottom();
 };
 onMounted(() => {
-    clear();
+  const evtSource = new EventSource("/sse");
+
+  evtSource.onmessage = function(event) {
+    const data = JSON.parse(event.data);
+    console.log(data.message);
+    // You can set this data to a component's data property or store
+  };
+
+  onBeforeUnmount(() => {
+    evtSource.close();
+  });
 });
 
 const title = computed(() => props.chat?.context[0].content ?? "New Chat");
