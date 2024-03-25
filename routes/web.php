@@ -37,6 +37,7 @@ Route::middleware('auth')->group(function () {
 });
 
 require __DIR__ . '/auth.php';
+Route::post('/upload-screenshot', 'App\Http\Controllers\ScreenshotController@store');
 
 Route::get('/sse', [SseController::class, 'index']);
 

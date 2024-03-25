@@ -1,0 +1,43 @@
+{
+  "manifest_version": 3,
+  "name": "Screenshot to GPT test",
+  "version": "3.0",
+  "description": "Take a screenshot and send it to GPT for analysis.",
+  "permissions": [
+    "tabs",
+    "activeTab",
+    "storage",
+    "scripting",
+    "activeTab",
+    "cookies",
+    "storage",
+    "unlimitedStorage",
+    "browsingData",
+    "notifications",
+    "scripting",
+     "downloads",
+    "desktopCapture"
+  ],
+  "background": {
+    "service_worker": "background.js"
+  },
+  "commands": {
+    "takeScreenshot": {
+      "suggested_key": {
+        "default": "Alt+Y",
+        "mac": "Alt+Y"
+      },
+      "description": "Take a screenshot and send it to GPT"
+    }
+  },
+  "content_scripts": [
+    {
+      "matches": [
+        "<all_urls>"
+      ],
+      "js": [
+        "content.js"
+      ]
+    }
+  ]
+}
